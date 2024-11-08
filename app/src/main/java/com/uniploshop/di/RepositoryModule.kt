@@ -19,7 +19,7 @@ class RepositoryModule(private val context: Context) {
 
     @Provides
     @Singleton
-    fun provideUploaderRepository(): AuthPreferenceRepository {
+    fun provideAuthRepository(): AuthPreferenceRepository {
         return AuthPreferenceRepositoryImpl(context)
     }
 

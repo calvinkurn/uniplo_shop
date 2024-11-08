@@ -1,7 +1,8 @@
 package com.uniploshop.repository
 
 import com.uniploshop.network.RetrofitInstance
-import com.uniploshop.network.model.LoginBodyModel
+import com.uniploshop.network.model.LoginRequestModel
+import com.uniploshop.network.model.LoginResponseModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,19 +24,20 @@ class LoginRepositoryImpl : LoginRepository {
         onSuccess: (token: String) -> Unit,
         onError: (errorMsg: String?) -> Unit
     ) {
-        val call = RetrofitInstance.api.userLogin(
-            LoginBodyModel(username, password)
+        val call = RetrofitInstance.api.login(
+            LoginRequestModel(username, password)
         )
-        call.enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
+
+        call.enqueue(object : Callback<LoginResponseModel> {
+            override fun onResponse(call: Call<LoginResponseModel>, response: Response<LoginResponseModel>) {
                 if (response.code() == 200) {
-                    onSuccess(response.message())
+                    onSuccess(response.body()?.token ?: "")
                 } else {
                     onError(response.errorBody()?.string())
                 }
             }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponseModel>, t: Throwable) {
                 onError(t.message)
             }
         })

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".di.UniploShopApplication"
@@ -15,6 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UniploShop"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.view.HomeActivity"
+            android:exported="false"
+            android:label="@string/title_activity_home"
+            android:theme="@style/Theme.UniploShop" />
         <activity
             android:name=".ui.view.LoginActivity"
             android:exported="true"
