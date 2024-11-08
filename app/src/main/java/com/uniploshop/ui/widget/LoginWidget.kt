@@ -24,6 +24,7 @@ import com.uniploshop.repository.AuthPreferenceRepositoryImpl
 import com.uniploshop.repository.LoginRepositoryImpl
 import com.uniploshop.ui.viewmodel.LoginActivityViewModel
 import com.uniploshop.usecase.LoginUseCase
+import com.uniploshop.usecase.UserSessionUseCase
 
 @Composable
 fun LoginWidget(
@@ -31,11 +32,11 @@ fun LoginWidget(
     onSubmit: (username: String, password: String) -> Unit = { _, _ -> }
 ) {
     var username by remember {
-        mutableStateOf("")
+        mutableStateOf("kevinryan")
     }
 
     var password by remember {
-        mutableStateOf("")
+        mutableStateOf("kev02937@")
     }
 
     val error by viewModel.loginErrorMsg.collectAsState()
@@ -100,11 +101,15 @@ fun LoginWidget(
 @Composable
 private fun LoginWidgetPrivate() {
     val context = LocalContext.current
+    val authRepo = AuthPreferenceRepositoryImpl(context)
     LoginWidget(
         LoginActivityViewModel(
             LoginUseCase(
                 LoginRepositoryImpl(),
-                AuthPreferenceRepositoryImpl(context)
+                authRepo,
+            ),
+            UserSessionUseCase(
+                authRepo
             )
         )
     )
