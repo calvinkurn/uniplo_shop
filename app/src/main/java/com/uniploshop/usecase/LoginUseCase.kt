@@ -2,6 +2,7 @@ package com.uniploshop.usecase
 
 import com.uniploshop.repository.AuthPreferenceRepository
 import com.uniploshop.repository.LoginRepository
+import com.uniploshop.ui.DELAY_TIME
 import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
 import kotlin.coroutines.resume
