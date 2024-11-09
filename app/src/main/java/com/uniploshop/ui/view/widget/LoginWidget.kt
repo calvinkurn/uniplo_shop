@@ -1,4 +1,4 @@
-package com.uniploshop.ui.widget
+package com.uniploshop.ui.view.widget
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding

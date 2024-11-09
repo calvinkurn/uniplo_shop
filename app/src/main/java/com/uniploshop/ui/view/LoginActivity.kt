@@ -22,7 +22,7 @@ import androidx.lifecycle.lifecycleScope
 import com.uniploshop.di.UniploShopApplication
 import com.uniploshop.ui.theme.UniploShopTheme
 import com.uniploshop.ui.viewmodel.LoginActivityViewModel
-import com.uniploshop.ui.widget.LoginWidget
+import com.uniploshop.ui.view.widget.LoginWidget
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
