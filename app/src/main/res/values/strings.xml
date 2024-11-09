@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">UniploShop</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="product_list_title">Product List</string>
 </resources>

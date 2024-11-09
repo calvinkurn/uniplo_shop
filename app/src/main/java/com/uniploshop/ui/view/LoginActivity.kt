@@ -45,7 +45,10 @@ class LoginActivity : ComponentActivity() {
             val isLoading = mainViewModel.loadingState.collectAsState().value
 
             UniploShopTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    containerColor = MaterialTheme.colorScheme.background
+                ) { innerPadding ->
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
@@ -61,9 +64,11 @@ class LoginActivity : ComponentActivity() {
 
                         if (isLoading) {
                             Box(
-                                modifier = Modifier.fillMaxSize().background(
-                                    color = Color.Black.copy(alpha = 0.45f)
-                                )
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(
+                                        color = Color.Black.copy(alpha = 0.45f)
+                                    )
                             ) {
                                 CircularProgressIndicator(
                                     modifier = Modifier.align(Alignment.Center),
