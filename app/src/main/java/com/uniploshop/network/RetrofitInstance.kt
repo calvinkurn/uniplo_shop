@@ -1,7 +1,7 @@
 package com.uniploshop.network
 
 import com.google.gson.GsonBuilder
-import com.uniploshop.network.model.LoginModelDeserialize
+import com.uniploshop.network.model.utils.LoginModelDeserialize
 import com.uniploshop.network.model.LoginResponseModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

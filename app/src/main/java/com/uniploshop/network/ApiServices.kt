@@ -2,6 +2,7 @@ package com.uniploshop.network
 
 import com.uniploshop.network.model.LoginRequestModel
 import com.uniploshop.network.model.LoginResponseModel
+import com.uniploshop.network.model.ProductResponseModel
 import com.uniploshop.network.model.UserDetailModel
 import retrofit2.Call
 import retrofit2.http.Body
@@ -14,4 +15,6 @@ interface ApiServices {
     fun login(@Body loginData: LoginRequestModel): Call<LoginResponseModel>
     @GET("/users")
     fun getUser(): Call<List<UserDetailModel>>
+    @GET("/products")
+    suspend fun getProduct(): List<ProductResponseModel>
 }

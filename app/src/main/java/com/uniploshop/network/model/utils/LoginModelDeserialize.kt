@@ -1,8 +1,9 @@
-package com.uniploshop.network.model
+package com.uniploshop.network.model.utils
 
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
+import com.uniploshop.network.model.LoginResponseModel
 import java.lang.reflect.Type
 
 class LoginModelDeserialize: JsonDeserializer<LoginResponseModel> {
