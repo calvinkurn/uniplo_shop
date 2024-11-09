@@ -1,5 +1,6 @@
 package com.uniploshop.di
 
+import com.uniploshop.ui.view.HomeActivity
 import com.uniploshop.ui.view.LoginActivity
 import dagger.Component
 import javax.inject.Singleton
@@ -9,4 +10,5 @@ import javax.inject.Singleton
 interface AppComponent {
     fun inject(application: UniploShopApplication)
     fun inject(activity: LoginActivity)
+    fun inject(activity: HomeActivity)
 }

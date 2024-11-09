@@ -5,6 +5,8 @@ import com.uniploshop.repository.AuthPreferenceRepository
 import com.uniploshop.repository.AuthPreferenceRepositoryImpl
 import com.uniploshop.repository.LoginRepository
 import com.uniploshop.repository.LoginRepositoryImpl
+import com.uniploshop.repository.ProductRepository
+import com.uniploshop.repository.ProductRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -27,5 +29,11 @@ class RepositoryModule(private val context: Context) {
     @Singleton
     fun provideLoginRepository(): LoginRepository {
         return LoginRepositoryImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideProductRepository(): ProductRepository {
+        return ProductRepositoryImpl()
     }
 }

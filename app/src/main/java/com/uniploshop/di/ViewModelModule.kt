@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.uniploshop.di.viewmodel.ViewModelFactory
 import com.uniploshop.di.viewmodel.ViewModelKey
+import com.uniploshop.ui.viewmodel.HomeActivityViewModel
 import com.uniploshop.ui.viewmodel.LoginActivityViewModel
 import dagger.Binds
 import dagger.Module
@@ -17,5 +18,10 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(LoginActivityViewModel::class)
-    abstract fun bindStockMonitorViewModel(viewModel: LoginActivityViewModel): ViewModel
+    abstract fun bindLoginActivityViewModel(viewModel: LoginActivityViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HomeActivityViewModel::class)
+    abstract fun bindHomeActivityViewModel(viewModel: HomeActivityViewModel): ViewModel
 }
