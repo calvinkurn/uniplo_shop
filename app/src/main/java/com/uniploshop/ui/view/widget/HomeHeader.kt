@@ -1,5 +1,6 @@
 package com.uniploshop.ui.view.widget
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,7 +23,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun HomeHeader(
-    title: String = "Title"
+    title: String = "Title",
+    onCartClick: () -> Unit = {},
+    onAccountClick: () -> Unit = {}
 ) {
     Column {
         Row(
@@ -42,7 +45,10 @@ fun HomeHeader(
                 )
                 Icon(
                     Icons.Default.AccountCircle,
-                    contentDescription = "Account"
+                    contentDescription = "Account",
+                    modifier = Modifier.clickable {
+                        onAccountClick()
+                    }
                 )
             }
         }

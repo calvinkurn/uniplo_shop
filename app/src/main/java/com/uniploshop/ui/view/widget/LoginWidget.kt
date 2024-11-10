@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.uniploshop.repository.AuthPreferenceRepositoryImpl
 import com.uniploshop.repository.LoginRepositoryImpl
+import com.uniploshop.repository.UserRepositoryImpl
 import com.uniploshop.ui.viewmodel.LoginActivityViewModel
 import com.uniploshop.usecase.LoginUseCase
 import com.uniploshop.usecase.UserSessionUseCase
@@ -107,6 +108,7 @@ private fun LoginWidgetPrivate() {
             LoginUseCase(
                 LoginRepositoryImpl(),
                 authRepo,
+                UserRepositoryImpl(authRepo),
             ),
             UserSessionUseCase(
                 authRepo

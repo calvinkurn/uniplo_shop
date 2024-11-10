@@ -13,7 +13,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -25,6 +28,7 @@ import com.uniploshop.model.ProductUiModel
 import com.uniploshop.ui.theme.UniploShopTheme
 import com.uniploshop.ui.view.widget.HomeHeader
 import com.uniploshop.ui.view.widget.ProductCard
+import com.uniploshop.ui.view.widget.ProfileBottomSheet
 import com.uniploshop.ui.viewmodel.HomeActivityViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -37,6 +41,7 @@ class HomeActivity : ComponentActivity() {
     private val homeViewModel: HomeActivityViewModel by viewModels { viewModelFactory }
 
     private val result = mutableStateListOf<ProductUiModel>()
+    private var isShowBottomSheet by mutableStateOf(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,9 +58,14 @@ class HomeActivity : ComponentActivity() {
                     Column(
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        Row {
+                        Row(
+                            modifier = Modifier
+                        ) {
                             HomeHeader(
-                                title = stringResource(R.string.product_list_title)
+                                title = stringResource(R.string.product_list_title),
+                                onAccountClick = {
+                                    openAccountBottomSheet()
+                                }
                             )
                         }
 
@@ -67,12 +77,29 @@ class HomeActivity : ComponentActivity() {
                             }
                         }
                     }
+
+                    if (isShowBottomSheet) {
+                        ProfileBottomSheet(
+                            userData = homeViewModel.userDetail
+                        ) {
+                            closeAccountBottomSheet()
+                        }
+                    }
                 }
             }
         }
 
         observe()
         fetchProductList()
+    }
+
+    private fun openAccountBottomSheet() {
+        isShowBottomSheet = true
+        homeViewModel.fetchUserData()
+    }
+
+    private fun closeAccountBottomSheet() {
+        isShowBottomSheet = false
     }
 
     private fun observe() {

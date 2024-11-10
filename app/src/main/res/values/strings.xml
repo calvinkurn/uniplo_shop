@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">UniploShop</string>
     <string name="product_list_title">Product List</string>
+
+    <!-- Label of account information -->
+    <string name="name_label_text">Name</string>
+    <string name="email_label_text">Email</string>
+    <string name="city_label_text">City</string>
+    <string name="zip_code_label_text">Zip Code</string>
+    <string name="phone_label_text">Phone</string>
 </resources>
