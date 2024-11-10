@@ -1,3 +1,3 @@
 package com.uniploshop.ui
 
-const val DELAY_TIME = 2000L // 2 sec
+const val DELAY_TIME = 1000L // 1 sec

@@ -74,7 +74,9 @@ fun ProfileBottomSheet(
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.error
             ),
-            onClick = {}
+            onClick = {
+                onLogoutClick()
+            }
         ) {
             Text("Logout")
         }

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.uniploshop.model.ProductUiModel
 import com.uniploshop.model.UserUiModel
 import com.uniploshop.usecase.AccountUseCase
+import com.uniploshop.usecase.SessionUseCase
 import com.uniploshop.usecase.ProductUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 class HomeActivityViewModel @Inject constructor(
     private val productUseCase: ProductUseCase,
-    private val accountUseCase: AccountUseCase
+    private val accountUseCase: AccountUseCase,
+    private val loginUseCase: SessionUseCase
 ): ViewModel() {
 
     private val _productList = MutableStateFlow<List<ProductUiModel>>(listOf())
@@ -36,5 +38,9 @@ class HomeActivityViewModel @Inject constructor(
                 _userDetail.tryEmit(it)
             }
         }
+    }
+
+    fun userLogout() {
+        loginUseCase.logout()
     }
 }

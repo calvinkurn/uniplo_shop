@@ -24,8 +24,7 @@ import com.uniploshop.repository.AuthPreferenceRepositoryImpl
 import com.uniploshop.repository.LoginRepositoryImpl
 import com.uniploshop.repository.UserRepositoryImpl
 import com.uniploshop.ui.viewmodel.LoginActivityViewModel
-import com.uniploshop.usecase.LoginUseCase
-import com.uniploshop.usecase.UserSessionUseCase
+import com.uniploshop.usecase.SessionUseCase
 
 @Composable
 fun LoginWidget(
@@ -105,13 +104,10 @@ private fun LoginWidgetPrivate() {
     val authRepo = AuthPreferenceRepositoryImpl(context)
     LoginWidget(
         LoginActivityViewModel(
-            LoginUseCase(
+            SessionUseCase(
                 LoginRepositoryImpl(),
                 authRepo,
                 UserRepositoryImpl(authRepo),
-            ),
-            UserSessionUseCase(
-                authRepo
             )
         )
     )

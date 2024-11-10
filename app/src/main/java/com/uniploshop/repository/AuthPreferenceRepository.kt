@@ -8,7 +8,7 @@ interface AuthPreferenceRepository {
     suspend fun getAuthToken(): String?
     suspend fun getUserId(): Int
     suspend fun checkUserSession(): SessionStatus
-    suspend fun clearAuth()
+    fun clearAuth()
 }
 
 // TODO: update security of token
@@ -49,9 +49,10 @@ class AuthPreferenceRepositoryImpl(
         }
     }
 
-    override suspend fun clearAuth() {
+    override fun clearAuth() {
         sharedPreferences.edit().also {
             it.putString(AUTH_KEY, "").apply()
+            it.putInt(ID_KEY, -1).apply()
             it.putLong(VALID_KEY, 0L).apply()
         }
     }

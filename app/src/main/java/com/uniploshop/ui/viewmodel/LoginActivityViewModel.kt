@@ -3,8 +3,7 @@ package com.uniploshop.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uniploshop.ui.DELAY_TIME
-import com.uniploshop.usecase.LoginUseCase
-import com.uniploshop.usecase.UserSessionUseCase
+import com.uniploshop.usecase.SessionUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -12,8 +11,7 @@ import javax.inject.Inject
 
 
 class LoginActivityViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase,
-    private val userSessionUseCase: UserSessionUseCase
+    private val sessionUseCase: SessionUseCase,
 ): ViewModel() {
     private var _isLoading = MutableStateFlow(false)
     val loadingState get() = _isLoading
@@ -29,7 +27,7 @@ class LoginActivityViewModel @Inject constructor(
             _loginErrorMsg.tryEmit("")
             _isLoading.tryEmit(true)
 
-            val (successLogin, errorMsg) = loginUseCase.login(username, password)
+            val (successLogin, errorMsg) = sessionUseCase.login(username, password)
             // Note: UI consideration, to let user know there is some progress
             Thread.sleep(DELAY_TIME)
 
@@ -42,7 +40,7 @@ class LoginActivityViewModel @Inject constructor(
     suspend fun checkUserSession() {
         _isLoading.tryEmit(true)
 
-        val isLogin = userSessionUseCase.checkUserSession()
+        val isLogin = sessionUseCase.checkUserSession()
         // Note: UI consideration, to let user know there is some progress
         Thread.sleep(DELAY_TIME)
 

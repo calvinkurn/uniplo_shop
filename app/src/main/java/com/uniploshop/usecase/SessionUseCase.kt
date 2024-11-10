@@ -2,15 +2,15 @@ package com.uniploshop.usecase
 
 import com.uniploshop.repository.AuthPreferenceRepository
 import com.uniploshop.repository.LoginRepository
+import com.uniploshop.repository.SessionStatus
 import com.uniploshop.repository.UserRepository
-import com.uniploshop.ui.DELAY_TIME
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
 import kotlin.coroutines.resume
 
 // TODO: improve security on passing username & password
-class LoginUseCase @Inject constructor(
+class SessionUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
     private val authPreferenceRepository: AuthPreferenceRepository,
     private val userRepository: UserRepository
@@ -45,5 +45,14 @@ class LoginUseCase @Inject constructor(
                 continuation.resume(Pair(false, it ?: ""))
             }
         )
+    }
+
+    suspend fun checkUserSession(): Boolean {
+        val isLogin = authPreferenceRepository.checkUserSession()
+        return isLogin == SessionStatus.Valid
+    }
+
+    fun logout() {
+        authPreferenceRepository.clearAuth()
     }
 }

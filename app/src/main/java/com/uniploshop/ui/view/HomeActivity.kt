@@ -1,5 +1,6 @@
 package com.uniploshop.ui.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -80,10 +81,14 @@ class HomeActivity : ComponentActivity() {
 
                     if (isShowBottomSheet) {
                         ProfileBottomSheet(
-                            userData = homeViewModel.userDetail
-                        ) {
-                            closeAccountBottomSheet()
-                        }
+                            userData = homeViewModel.userDetail,
+                            onLogoutClick = {
+                                userLogout()
+                            },
+                            onDismiss = {
+                                closeAccountBottomSheet()
+                            }
+                        )
                     }
                 }
             }
@@ -91,6 +96,14 @@ class HomeActivity : ComponentActivity() {
 
         observe()
         fetchProductList()
+    }
+
+    private fun userLogout() {
+        homeViewModel.userLogout()
+        val intent = Intent(this@HomeActivity, LoginActivity::class.java)
+        startActivity(intent)
+
+        this@HomeActivity.finish()
     }
 
     private fun openAccountBottomSheet() {
