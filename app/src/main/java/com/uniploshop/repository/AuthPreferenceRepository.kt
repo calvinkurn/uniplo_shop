@@ -4,13 +4,15 @@ import android.content.Context
 import android.content.SharedPreferences
 
 interface AuthPreferenceRepository {
-    fun saveAuthToken(token: String)
+    fun saveAuthToken(token: String, userId: Int)
     suspend fun getAuthToken(): String?
+    suspend fun getUserId(): Int
     suspend fun checkUserSession(): SessionStatus
     suspend fun clearAuth()
 }
 
 // TODO: update security of token
+// TODO: check session every accessing session & kick user when validity is expired
 class AuthPreferenceRepositoryImpl(
     context: Context
 ): AuthPreferenceRepository {
@@ -22,9 +24,15 @@ class AuthPreferenceRepositoryImpl(
         return sharedPreferences.getString(AUTH_KEY, null)
     }
 
-    override fun saveAuthToken(token: String) {
+    // due to user token is useless we can only use userid to access related user detail
+    override suspend fun getUserId(): Int {
+        return sharedPreferences.getInt(ID_KEY, -1)
+    }
+
+    override fun saveAuthToken(token: String, userId: Int) {
         sharedPreferences.edit().also {
             it.putString(AUTH_KEY, token).apply()
+            it.putInt(ID_KEY, userId).apply()
             it.putLong(VALID_KEY, System.currentTimeMillis() + VALID_DURATION).apply()
         }
     }
@@ -51,6 +59,7 @@ class AuthPreferenceRepositoryImpl(
     private companion object {
         const val AUTH_KEY = "auth_token"
         const val VALID_KEY = "validity"
+        const val ID_KEY = "user_id"
         const val AUTH_PREF = "auth_pref"
         const val VALID_DURATION = 3_600_000 // expire on 1 hour
     }
