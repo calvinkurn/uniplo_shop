@@ -1,29 +1,31 @@
 package com.uniploshop.network.model
 
-data class UserDetailModel(
-    val address: Address,
-    val id: Int,
-    val email: String,
-    val username: String,
-    val password: String,
-    val name: Name,
-    val phone: String
+import com.google.gson.annotations.SerializedName
+
+data class UserResponseModel(
+    @SerializedName("address") val address: Address,
+    @SerializedName("id") val id: Int,
+    @SerializedName("email") val email: String,
+    @SerializedName("username") val username: String,
+    @SerializedName("password") val password: String,
+    @SerializedName("name") val name: Name,
+    @SerializedName("phone") val phone: String
 )
 
 data class Address(
-    val geolocation: GeoLocation,
-    val city: String,
-    val street: String,
-    val number: Int,
-    val zipCode: String,
+    @SerializedName("geolocation") val geolocation: GeoLocation,
+    @SerializedName("city") val city: String,
+    @SerializedName("street") val street: String,
+    @SerializedName("number") val number: Int,
+    @SerializedName("zipcode") val zipCode: String,
 )
 
 data class GeoLocation(
-    val lat: String,
-    val long: String
+    @SerializedName("lat") val lat: String,
+    @SerializedName("long") val long: String
 )
 
 data class Name(
-    val firstName: String,
-    val lastName: String
+    @SerializedName("firstname") val firstName: String,
+    @SerializedName("lastname") val lastName: String
 )
