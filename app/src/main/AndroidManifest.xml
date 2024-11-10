@@ -20,6 +20,10 @@
             android:exported="false"
             android:theme="@style/Theme.UniploShop" />
         <activity
+            android:name=".ui.view.CartActivity"
+            android:exported="false"
+            android:theme="@style/Theme.UniploShop" />
+        <activity
             android:name=".ui.view.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.UniploShop">

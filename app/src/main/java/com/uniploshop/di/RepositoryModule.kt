@@ -3,6 +3,8 @@ package com.uniploshop.di
 import android.content.Context
 import com.uniploshop.repository.AuthPreferenceRepository
 import com.uniploshop.repository.AuthPreferenceRepositoryImpl
+import com.uniploshop.repository.CartRepository
+import com.uniploshop.repository.CartRepositoryImpl
 import com.uniploshop.repository.LoginRepository
 import com.uniploshop.repository.LoginRepositoryImpl
 import com.uniploshop.repository.ProductRepository
@@ -43,5 +45,11 @@ class RepositoryModule(private val context: Context) {
     @Singleton
     fun provideUserRepository(): UserRepository {
         return UserRepositoryImpl(provideAuthRepository())
+    }
+
+    @Provides
+    @Singleton
+    fun provideCartRepository(): CartRepository {
+        return CartRepositoryImpl()
     }
 }

@@ -66,6 +66,9 @@ class HomeActivity : ComponentActivity() {
                                 title = stringResource(R.string.product_list_title),
                                 onAccountClick = {
                                     openAccountBottomSheet()
+                                },
+                                onCartClick = {
+                                    navigateToCartPage()
                                 }
                             )
                         }
@@ -104,6 +107,11 @@ class HomeActivity : ComponentActivity() {
         startActivity(intent)
 
         this@HomeActivity.finish()
+    }
+
+    private fun navigateToCartPage() {
+        val intent = Intent(this@HomeActivity, CartActivity::class.java)
+        startActivity(intent)
     }
 
     private fun openAccountBottomSheet() {

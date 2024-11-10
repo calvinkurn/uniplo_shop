@@ -41,7 +41,9 @@ fun HomeHeader(
                 Icon(
                     Icons.Default.ShoppingCart,
                     contentDescription = "Cart",
-                    modifier = Modifier.padding(end = 8.dp),
+                    modifier = Modifier.padding(end = 8.dp).clickable {
+                        onCartClick()
+                    },
                 )
                 Icon(
                     Icons.Default.AccountCircle,

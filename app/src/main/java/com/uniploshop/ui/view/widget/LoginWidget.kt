@@ -31,10 +31,12 @@ fun LoginWidget(
     viewModel: LoginActivityViewModel,
     onSubmit: (username: String, password: String) -> Unit = { _, _ -> }
 ) {
+    // TODO: remove after development
     var username by remember {
         mutableStateOf("kevinryan")
     }
 
+    // TODO: remove after development
     var password by remember {
         mutableStateOf("kev02937@")
     }
