@@ -71,7 +71,7 @@ fun CartProductCard(
         }
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Button(
@@ -83,17 +83,17 @@ fun CartProductCard(
             }
             Button(
                 onClick = {
-                    onIncClick()
-                }
-            ) {
-                Text("+")
-            }
-            Button(
-                onClick = {
                     onDecClick()
                 }
             ) {
                 Text("-")
+            }
+            Button(
+                onClick = {
+                    onIncClick()
+                }
+            ) {
+                Text("+")
             }
         }
     }
