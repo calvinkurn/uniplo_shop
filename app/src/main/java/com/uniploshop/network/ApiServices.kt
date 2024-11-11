@@ -20,6 +20,8 @@ interface ApiServices {
     suspend fun getProduct(): List<ProductResponseModel>
     @GET("/products/{id}")
     suspend fun getProduct(@Path("id") id: Int): ProductResponseModel
+    @GET("/products/category/{category}")
+    suspend fun getProductByCategory(@Path("category") category: String): List<ProductResponseModel>
 
     @GET("/users")
     suspend fun getUser(): List<UserResponseModel>
@@ -28,4 +30,7 @@ interface ApiServices {
 
     @GET("/carts/user/{id}")
     suspend fun getUserCart(@Path("id") id: Int): List<UserCartResponseModel>
+
+    @GET("/products/categories")
+    suspend fun getProductCategories(): List<String>
 }

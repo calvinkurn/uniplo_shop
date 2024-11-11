@@ -13,4 +13,12 @@ class ProductUseCase @Inject constructor(
     suspend fun getAllProduct(): List<ProductUiModel> {
         return productRepository.getAllProduct().map { it.toProductUiModel() }
     }
+
+    suspend fun getProductByCategory(category: String): List<ProductUiModel> {
+        return productRepository.getProductByCategory(category).map { it.toProductUiModel() }
+    }
+
+    suspend fun getProductCategories(): List<String> {
+        return productRepository.getProductCategories()
+    }
 }

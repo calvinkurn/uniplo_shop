@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,7 +25,9 @@ import androidx.lifecycle.lifecycleScope
 import com.uniploshop.R
 import com.uniploshop.di.UniploShopApplication
 import com.uniploshop.model.ProductUiModel
+import com.uniploshop.ui.CATEGORY_ALL
 import com.uniploshop.ui.theme.UniploShopTheme
+import com.uniploshop.ui.view.widget.FilterWidget
 import com.uniploshop.ui.view.widget.HomeHeader
 import com.uniploshop.ui.view.widget.ProductCard
 import com.uniploshop.ui.view.widget.ProfileBottomSheet
@@ -41,7 +42,8 @@ class HomeActivity : ComponentActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val homeViewModel: HomeActivityViewModel by viewModels { viewModelFactory }
 
-    private val result = mutableStateListOf<ProductUiModel>()
+    private val productList = mutableStateListOf<ProductUiModel>()
+    private val categories = mutableStateListOf<String>()
     private var isShowBottomSheet by mutableStateOf(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,24 +61,24 @@ class HomeActivity : ComponentActivity() {
                     Column(
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        Row(
-                            modifier = Modifier
-                        ) {
-                            HomeHeader(
-                                title = stringResource(R.string.product_list_title),
-                                onAccountClick = {
-                                    openAccountBottomSheet()
-                                },
-                                onCartClick = {
-                                    navigateToCartPage()
-                                }
-                            )
+                        HomeHeader(
+                            title = stringResource(R.string.product_list_title),
+                            onAccountClick = {
+                                openAccountBottomSheet()
+                            },
+                            onCartClick = {
+                                navigateToCartPage()
+                            }
+                        )
+
+                        FilterWidget(categories) {
+                            filterHandler(it)
                         }
 
                         LazyColumn(
                             modifier = Modifier.padding(4.dp)
                         ) {
-                            items(result) {
+                            items(productList) {
                                 ProductCard(it.title, it.price, it.rating, it.image)
                             }
                         }
@@ -98,7 +100,15 @@ class HomeActivity : ComponentActivity() {
         }
 
         observe()
-        fetchProductList()
+        fetchCategories()
+    }
+
+    private fun filterHandler(newCategory: String) {
+        if (newCategory == CATEGORY_ALL) {
+            homeViewModel.fetchAllProduct()
+        } else {
+            homeViewModel.fetchProductByCategory(newCategory)
+        }
     }
 
     private fun userLogout() {
@@ -126,13 +136,21 @@ class HomeActivity : ComponentActivity() {
     private fun observe() {
         lifecycleScope.launch {
             homeViewModel.productList.collectLatest {
-                result.addAll(it)
+                productList.clear()
+                productList.addAll(it)
+            }
+        }
+
+        lifecycleScope.launch {
+            homeViewModel.productCategories.collectLatest {
+                categories.clear()
+                categories.addAll(it)
             }
         }
     }
 
-    private fun fetchProductList() {
-        homeViewModel.fetchAllProduct()
+    private fun fetchCategories() {
+        homeViewModel.fetchProductCategories()
     }
 
     private fun initInjection() {
