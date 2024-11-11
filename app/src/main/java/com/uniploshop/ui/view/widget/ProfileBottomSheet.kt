@@ -78,7 +78,7 @@ fun ProfileBottomSheet(
                 onLogoutClick()
             }
         ) {
-            Text("Logout")
+            Text(stringResource(R.string.button_label_logout))
         }
     }
 }

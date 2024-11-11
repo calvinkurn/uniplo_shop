@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">UniploShop</string>
+
     <string name="product_list_title">Product List</string>
+    <string name="cart_title">Cart</string>
 
     <!-- Label of account information -->
     <string name="name_label_text">Name</string>
@@ -8,4 +10,16 @@
     <string name="city_label_text">City</string>
     <string name="zip_code_label_text">Zip Code</string>
     <string name="phone_label_text">Phone</string>
+
+    <string name="success_atc_message">Success add item to your cart</string>
+
+    <string name="product_image_content_desc">Product Image</string>
+    <string name="account_icon_desc">Account Icon</string>
+    <string name="cart_icon_desc">Cart Icon</string>
+
+    <string name="username_label_login">Username</string>
+    <string name="password_label_login">Username</string>
+
+    <string name="button_label_login">Login</string>
+    <string name="button_label_logout">Logout</string>
 </resources>

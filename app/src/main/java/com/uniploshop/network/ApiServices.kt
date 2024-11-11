@@ -1,5 +1,6 @@
 package com.uniploshop.network
 
+import com.uniploshop.network.model.AddToCartRequestModel
 import com.uniploshop.network.model.LoginRequestModel
 import com.uniploshop.network.model.LoginResponseModel
 import com.uniploshop.network.model.ProductResponseModel
@@ -30,6 +31,8 @@ interface ApiServices {
 
     @GET("/carts/user/{id}")
     suspend fun getUserCart(@Path("id") id: Int): List<UserCartResponseModel>
+    @POST("/carts")
+    suspend fun addProductToCart(@Body atcProduct: AddToCartRequestModel): UserCartResponseModel
 
     @GET("/products/categories")
     suspend fun getProductCategories(): List<String>

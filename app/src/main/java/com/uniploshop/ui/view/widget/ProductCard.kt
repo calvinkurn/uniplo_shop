@@ -28,10 +28,14 @@ fun ProductCard(
     title: String? = "Title",
     price: Double? = 10.0,
     rating: Rating? = Rating(rate = 5.0, count = 10),
-    image: String? = ""
+    image: String? = "",
+    onClick: () -> Unit = {}
 ) {
     ElevatedCard(
-        modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp)
+        modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
+        onClick = {
+            onClick()
+        }
     ) {
         Row(
             modifier = Modifier
@@ -47,7 +51,7 @@ fun ProductCard(
                         model = image,
                         placeholder = painterResource(id = R.drawable.ic_launcher_background)
                     ),
-                    contentDescription = "Test Content Desc",
+                    contentDescription = title,
                 )
             }
 

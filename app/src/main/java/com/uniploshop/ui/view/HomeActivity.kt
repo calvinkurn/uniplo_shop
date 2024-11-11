@@ -6,18 +6,25 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
@@ -36,6 +43,11 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
+/**
+ * Note: ATC is working but not showing on cart page due to fakestoreapi capabilities
+ * Please refer to their note "remember that nothing in real will insert into the database. so if you want to access the new id you will get a 404 error." on their docs.
+ */
 class HomeActivity : ComponentActivity() {
 
     @Inject
@@ -44,6 +56,7 @@ class HomeActivity : ComponentActivity() {
 
     private val productList = mutableStateListOf<ProductUiModel>()
     private val categories = mutableStateListOf<String>()
+    private var isShowSuccessModal by mutableStateOf(false)
     private var isShowBottomSheet by mutableStateOf(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +92,9 @@ class HomeActivity : ComponentActivity() {
                             modifier = Modifier.padding(4.dp)
                         ) {
                             items(productList) {
-                                ProductCard(it.title, it.price, it.rating, it.image)
+                                ProductCard(it.title, it.price, it.rating, it.image) {
+                                    addToCart(it.id)
+                                }
                             }
                         }
                     }
@@ -95,6 +110,19 @@ class HomeActivity : ComponentActivity() {
                             }
                         )
                     }
+
+                    if (isShowSuccessModal) {
+                        Box(
+                            modifier = Modifier.fillMaxSize().background(Color(0x5F000000)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            ElevatedCard(
+
+                            ) {
+                                Text(stringResource(R.string.success_atc_message), modifier = Modifier.padding(16.dp))
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -108,6 +136,12 @@ class HomeActivity : ComponentActivity() {
             homeViewModel.fetchAllProduct()
         } else {
             homeViewModel.fetchProductByCategory(newCategory)
+        }
+    }
+
+    private fun addToCart(productId: Int?) {
+        productId?.let {
+            homeViewModel.atcProduct(it)
         }
     }
 
@@ -145,6 +179,12 @@ class HomeActivity : ComponentActivity() {
             homeViewModel.productCategories.collectLatest {
                 categories.clear()
                 categories.addAll(it)
+            }
+        }
+
+        lifecycleScope.launch {
+            homeViewModel.isSuccessAdded.collectLatest {
+                isShowSuccessModal = it
             }
         }
     }

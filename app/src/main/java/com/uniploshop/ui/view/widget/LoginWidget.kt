@@ -16,10 +16,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import com.uniploshop.R
 import com.uniploshop.repository.AuthPreferenceRepositoryImpl
 import com.uniploshop.repository.LoginRepositoryImpl
 import com.uniploshop.repository.UserRepositoryImpl
@@ -31,14 +33,12 @@ fun LoginWidget(
     viewModel: LoginActivityViewModel,
     onSubmit: (username: String, password: String) -> Unit = { _, _ -> }
 ) {
-    // TODO: remove after development
     var username by remember {
-        mutableStateOf("kevinryan")
+        mutableStateOf("")
     }
 
-    // TODO: remove after development
     var password by remember {
-        mutableStateOf("kev02937@")
+        mutableStateOf("")
     }
 
     val error by viewModel.loginErrorMsg.collectAsState()
@@ -52,7 +52,7 @@ fun LoginWidget(
         ) {
             Text(
                 modifier = Modifier.padding(12.dp),
-                text = "Uniplo Store",
+                text = stringResource(R.string.app_name),
                 fontSize = TextUnit(32f, TextUnitType.Sp)
             )
 
@@ -60,7 +60,7 @@ fun LoginWidget(
                 modifier = Modifier.padding(vertical = 4.dp),
                 value = username,
                 label = {
-                    Text(text = "Username")
+                    Text(text = stringResource(R.string.username_label_login))
                 },
                 onValueChange = {
                     username = it
@@ -71,7 +71,7 @@ fun LoginWidget(
                 modifier = Modifier.padding(top = 14.dp),
                 value = password,
                 label = {
-                    Text(text = "Password")
+                    Text(text = stringResource(R.string.password_label_login))
                 },
                 onValueChange = {
                     password = it
@@ -93,7 +93,7 @@ fun LoginWidget(
                     onSubmit(username, password)
                 }
             ) {
-                Text(text = "Login")
+                Text(text = stringResource(R.string.button_label_login))
             }
         }
     }

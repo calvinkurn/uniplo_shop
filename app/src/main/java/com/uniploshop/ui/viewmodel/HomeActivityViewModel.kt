@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.uniploshop.model.ProductUiModel
 import com.uniploshop.model.UserUiModel
 import com.uniploshop.ui.CATEGORY_ALL
+import com.uniploshop.ui.DELAY_TIME
 import com.uniploshop.usecase.AccountUseCase
 import com.uniploshop.usecase.SessionUseCase
 import com.uniploshop.usecase.ProductUseCase
@@ -27,6 +28,9 @@ class HomeActivityViewModel @Inject constructor(
 
     private val _productCategories = MutableStateFlow<List<String>>(emptyList())
     val productCategories get() = _productCategories
+
+    private var _isSuccessAdded = MutableStateFlow(false)
+    val isSuccessAdded get() = _isSuccessAdded
 
     fun fetchAllProduct() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -64,5 +68,19 @@ class HomeActivityViewModel @Inject constructor(
 
     fun userLogout() {
         loginUseCase.logout()
+    }
+
+    fun atcProduct(productId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            productUseCase.addProductToCart(productId)?.let {
+                if (it > -1) {
+                    _isSuccessAdded.value = true
+
+                    Thread.sleep(DELAY_TIME)
+
+                    _isSuccessAdded.value = false
+                }
+            }
+        }
     }
 }
